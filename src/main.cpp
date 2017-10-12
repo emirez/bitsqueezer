@@ -13,14 +13,17 @@ void setup() {
 
   BitSqueezr squeezr;
   squeezr.setMaxSize(12);
-  squeezr.add(12345678); //integer
-  squeezr.add(1); //bool
-  squeezr.add(uint64_t("c")); //char
+  squeezr.add(123456); //integer
+  //squeezr.add(1); //bool
+  //squeezr.add(uint64_t("c")); //char
 
-  uint8_t* t = squeezr.getData();
-  Serial.printf("\nReturning %d bytes:\n", squeezr.getSize()-1);
-  for (int i = 0; i < squeezr.getSize() - 1; i++)
+  uint8_t* t = squeezr.getEncodedData();
+  Serial.printf("\Encoded %d bytes:\n", squeezr.getSize());
+  for (int i = 0; i < squeezr.getSize(); i++)
       Serial.printf("%-2X \n", t[i]);
+
+  if(squeezr.unpack(t))
+      Serial.printf("\nDecoded bytes:\n%lld", (long long)squeezr.getDecodedData());
 }
 
 /*! \brief Loop function

@@ -1,4 +1,5 @@
 #include "bitsqueezr.hpp"
+#include <bitset>
 #include <Arduino.h>
 
 /*! \brief Set maximum array size.
@@ -15,9 +16,19 @@ bool BitSqueezr::setMaxSize(uint8_t size)
  *
  *  Returns the current bitArray as uint8 pointer.
  */
-uint8_t* BitSqueezr::getData() {
+uint8_t* BitSqueezr::getEncodedData() {
     return bitArray.getData();
 }
+
+/*! \brief Returns the current decoded data.
+ *
+ *  Returns the current decoded data.
+ */
+uint64_t BitSqueezr::getDecodedData() {
+    Serial.printf("%d", decodedData);
+    return decodedData;
+}
+
 
 /*! \brief Returns the current bitArray size.
  *
@@ -54,9 +65,19 @@ bool BitSqueezr::add(uint64_t value)
 
 /*! \brief Unpacks encoded bitArray
  *
- *  Unpacks an fibonacci encoded, bit-precise bitArray
+ *  Unpacks an fibonacci encoded, bit-precise bitArray uint8 value
  */
-bool BitSqueezr::unpack(uint64_t value)
+bool BitSqueezr::unpack(uint8_t* value)
 {
-  return true;
+    std::string str;
+    for (int i = 0; i < getSize(); i++)
+    {
+        std::string s = std::bitset<8>(value[i]).to_string(); // string conversion
+        str.append(s.c_str());
+    }
+    str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
+
+    decodedData = encoder.decodeFib(str.c_str());
+
+    return true;
 }
