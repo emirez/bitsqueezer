@@ -1,28 +1,36 @@
 #include "bitsqueezr.hpp"
 #include <Arduino.h>
 
-#undef qMain
-#define INTEGER  0
-#define BOOL  1
-#define CHAR  2
+bool BitSqueezr::setMaxSize(uint8_t size)
+{
+    this->maxSize = 12;
+    bitArray.init(maxSize);
+}
+
+uint8_t* BitSqueezr::getData() {
+    return bitArray.getData();
+}
+
+int BitSqueezr::getSize() {
+    return bitArray.total_bytes();
+}
 
 bool BitSqueezr::add(uint64_t value)
 {
-    if (add(value, INTEGER))
-        return true;
-}
-
-bool BitSqueezr::add(uint64_t value, uint8_t type)
-{
-    //todo: check size
-    if(true)
+    //todo: add better size checks
+    if(getSize() < maxSize)
     {
-        if(encoder.encodeFib(value))
+        char* codeword = encoder.encodeFib(value);
+
+        size_t i;
+        for (i=0; codeword[i]; i++)
         {
-            this->bitArray = encoder.bitArray;
-            this->currentSize += encoder.totalBytes;
+            int d = codeword[i] - '0';
+                bitArray.push(d);
         }
-        return false;
+
+        bitArray.dump();
+        return true;
     }
     else
         return false;

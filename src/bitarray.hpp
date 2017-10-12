@@ -4,6 +4,8 @@
 #include <string.h>
 #include <Arduino.h>
 
+#define VERBOSE 1
+
 class BitArray {
   uint8_t   *p_buf;
   uint8_t   sz;
@@ -12,8 +14,6 @@ class BitArray {
   uint8_t   bitpos;
   uint8_t   n;
 
-  uint8_t   *b;
-
 public:
 
   operator const char*(){
@@ -21,12 +21,10 @@ public:
     return (const char*) p_buf;
   }
 
-
-  BitArray(uint8_t maxsz) {
-    this->sz = maxsz;
-    this->p_buf = (uint8_t*)malloc(this->sz);
-    this->b = (uint8_t*)malloc(this->sz);
-    reset();
+  void init(uint8_t maxsz) {
+      this->sz = maxsz;
+      this->p_buf = (uint8_t*)malloc(this->sz);
+      reset();
   }
 
   void reset() {
@@ -50,7 +48,7 @@ public:
   }
 
   uint8_t* getData() {
-      return b;
+      return p_buf;
   }
 
   int total_bits() {
@@ -70,11 +68,15 @@ public:
         bits[j] = (( v & (1<<(7-j)))?'1':'0');
       }
       bits[8] = 0;
-      printf("%-2X %s\n", v, bits);
-      this->b[i] = v;
+      if(VERBOSE)
+        printf("%-2X %s\n", v, bits);
+
     }
-    printf("bitpos=%d\n", this->bitpos);
-    printf("n=%d\n", this->n);
+    if(VERBOSE)
+    {
+        printf("bitpos=%d\n", this->bitpos);
+        printf("n=%d\n", this->n);
+    }
   }
 };
 

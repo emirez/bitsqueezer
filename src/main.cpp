@@ -8,11 +8,15 @@ void setup() {
   Serial.println("\n\nBitsqueezr started...");
 
   BitSqueezr squeezr;
-  squeezr.maxSize = 12; //12 byte maxsize
-  squeezr.add(123456); //encode integer
-  Serial.println("\nReturn A:\n");
-  for (int i = 0; i < squeezr.currentSize - 1; i++)
-      Serial.printf("%-2X \n", squeezr.bitArray[i]);
+  squeezr.setMaxSize(12);
+  squeezr.add(12345678); //integer
+  squeezr.add(1); //bool
+  squeezr.add(uint64_t("c")); //char
+
+  uint8_t* t = squeezr.getData();
+  Serial.printf("\nReturning %d bytes:\n", squeezr.getSize()-1);
+  for (int i = 0; i < squeezr.getSize() - 1; i++)
+      Serial.printf("%-2X \n", t[i]);
 }
 
 void loop() {

@@ -13,37 +13,26 @@ uint64_t FibEncoder::seriesFib(uint64_t n)
     return (i-2);
 }
 
-bool FibEncoder::encodeFib(uint64_t n)
+char * FibEncoder::encodeFib(uint64_t n)
 {
-  BitArray ba (12);
   uint64_t index = seriesFib(n);
   char *codeword = (char*)malloc(sizeof(char)*(index+3));
   uint64_t i = index;
-  ba.push(1);
   while (n)
   {
       codeword[i] = '1';
-      ba.push(1);
       n = n - fibSeries[i];
       i = i - 1;
       while (i>=0 && fibSeries[i]>n)
       {
           codeword[i] = '0';
-          ba.push(0);
           i = i - 1;
       }
   }
   codeword[index+1] = '1';
   codeword[index+2] = '\0';
 
-  ba.dump();
-  this->bitArray = ba.getData();
-  this->totalBytes = ba.total_bytes();
-
-  if(this->totalBytes>0)
-      return true;
-  else
-      return false;
+  return codeword;
 }
 
 uint64_t FibEncoder::decodeFib(const char *codeword)
