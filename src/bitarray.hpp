@@ -11,10 +11,18 @@ class BitArray {
   uint8_t   bitpos;
   uint8_t   n;
 
+  uint8_t   b[];
+
 public:
 
+  operator const char*(){
+
+    return (const char*) p_buf;
+  }
+
+
   BitArray(uint8_t maxsz) {
-    this->sz = maxsz; 
+    this->sz = maxsz;
     this->p_buf = (uint8_t*)malloc(this->sz);
     reset();
   }
@@ -39,8 +47,12 @@ public:
     }
   }
 
+  uint8_t* getData() {
+      return b;
+  }
+
   int total_bits() {
-    return this->n*8 + (7-this->bitpos); 
+    return this->n*8 + (7-this->bitpos);
   }
 
   int total_bytes() {
@@ -53,39 +65,14 @@ public:
       uint8_t v = *p_cur;
       char bits[9];
       for (int j = 0; j < 8; j++) {
-        bits[j] = (( v & (1<<(7-j)))?'1':'0'); 
+        bits[j] = (( v & (1<<(7-j)))?'1':'0');
       }
       bits[8] = 0;
       printf("%-2X %s\n", v, bits);
+      this->b[i] = v;
     }
-    printf("bitpos=%i\n", this->bitpos);
-    printf("n=%i\n", this->n);
+    printf("bitpos=%d\n", this->bitpos);
+    printf("n=%d\n", this->n);
   }
 };
 
-int main() {
-  BitArray  ba(12);
-  ba.push(1);
-  ba.push(0);
-  ba.push(1);
-  ba.push(0);
-  ba.push(1);
-  ba.push(0);
-  ba.push(1);
-  ba.push(0);
-  ba.push(1);
-  ba.push(0);
-  ba.push(0);
-  ba.push(0);
-  ba.push(1);
-  ba.push(0);
-  ba.push(0);
-  ba.push(0);
-  ba.push(1);
-  ba.push(1);
-  ba.push(0);
-  ba.dump();
-
-  printf("total_bits=%i\n", ba.total_bits());
-  printf("total_bytes=%i\n", ba.total_bytes());
-}
