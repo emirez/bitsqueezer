@@ -1,6 +1,10 @@
 #include <Arduino.h>
 #include "bitsqueezr.hpp"
 
+/*! \brief Setup function
+ *
+ *  Setup function, only executed once
+ */
 void setup() {
   Serial.begin(9600);
 
@@ -19,5 +23,9 @@ void setup() {
       Serial.printf("%-2X \n", t[i]);
 }
 
+/*! \brief Loop function
+ *
+ *  Loop function, loops continously
+ */
 void loop() {
 }

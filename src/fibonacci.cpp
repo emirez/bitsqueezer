@@ -1,6 +1,10 @@
 #include "fibonacci.hpp"
 #include <Arduino.h>
 
+/*! \brief Returns fibonacci series
+ *
+ *  Returns a fibonacci series up to given value
+ */
 uint64_t FibEncoder::seriesFib(uint64_t n)
 {
     fibSeries[0] = 1;
@@ -13,6 +17,10 @@ uint64_t FibEncoder::seriesFib(uint64_t n)
     return (i-2);
 }
 
+/*! \brief Encodes with fibonacci algorithm
+ *
+ *  Encodes given uint64 value with fibonacci algorithm
+ */
 char * FibEncoder::encodeFib(uint64_t n)
 {
   uint64_t index = seriesFib(n);
@@ -35,6 +43,10 @@ char * FibEncoder::encodeFib(uint64_t n)
   return codeword;
 }
 
+/*! \brief Decodes with fibonacci algorithm
+ *
+ *  Decodes given char array with fibonacci algorithm
+ */
 uint64_t FibEncoder::decodeFib(const char *codeword)
 {
   char *codeword_c = (char*) codeword;
