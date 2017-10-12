@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <Arduino.h>
 
 class BitArray {
   uint8_t   *p_buf;
@@ -11,7 +12,7 @@ class BitArray {
   uint8_t   bitpos;
   uint8_t   n;
 
-  uint8_t   b[];
+  uint8_t   b[12];
 
 public:
 
