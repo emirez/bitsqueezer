@@ -1,6 +1,10 @@
 #include "bitsqueezr.hpp"
 #include <bitset>
 #include <Arduino.h>
+#include <stdio.h>
+
+BitSqueezr::BitSqueezr() {
+}
 
 /*! \brief Set maximum array size.
  *

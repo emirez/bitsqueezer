@@ -1,8 +1,6 @@
 #include "fibonacci.hpp"
 #include "bitarray.hpp"
-#include <stdio.h>
 #include <stdint.h>
-#include <Arduino.h>
 
 class BitSqueezr
 {
@@ -13,6 +11,8 @@ private:
     uint64 decodedData = 0;
 
 public:
+    BitSqueezr();
+
     uint8_t* getEncodedData();
     uint64_t getDecodedData();
     int getSize();
