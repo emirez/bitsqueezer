@@ -12,7 +12,7 @@ class BitArray {
   uint8_t   bitpos;
   uint8_t   n;
 
-  uint8_t   b[12];
+  uint8_t   *b;
 
 public:
 
@@ -25,6 +25,7 @@ public:
   BitArray(uint8_t maxsz) {
     this->sz = maxsz;
     this->p_buf = (uint8_t*)malloc(this->sz);
+    this->b = (uint8_t*)malloc(this->sz);
     reset();
   }
 
