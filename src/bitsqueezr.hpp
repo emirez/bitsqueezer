@@ -8,7 +8,7 @@ private:
     FibEncoder encoder;
     BitArray bitArray;
     uint8_t maxSize = 0;
-    uint64 decodedData = 0;
+    uint64_t decodedData = 0;
 
 public:
     BitSqueezr();
