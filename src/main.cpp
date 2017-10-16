@@ -1,3 +1,4 @@
+#ifndef UNIT_TEST
 #include <Arduino.h>
 #include "bitsqueezr.hpp"
 
@@ -32,3 +33,4 @@ void setup() {
  */
 void loop() {
 }
+#endif

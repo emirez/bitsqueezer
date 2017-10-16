@@ -1,5 +1,7 @@
 #include "fibonacci.hpp"
-#include <Arduino.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 /*! \brief Returns fibonacci series
  *
@@ -23,7 +25,7 @@ uint64_t FibEncoder::seriesFib(uint64_t n)
  */
 char * FibEncoder::encodeFib(uint64_t n)
 {
-    Serial.printf("Encoding: %d\n", n);
+//    Serial.printf("Encoding: %d\n", n);
     uint64_t index = seriesFib(n);
     char *codeword = (char*)malloc(sizeof(char)*(index+3));
     uint64_t i = index;
@@ -41,7 +43,7 @@ char * FibEncoder::encodeFib(uint64_t n)
     codeword[index+1] = '1';
     codeword[index+2] = '\0';
 
-    Serial.printf("Original fib: %s\n", codeword);
+//    Serial.printf("Original fib: %s\n", codeword);
 
     return codeword;
 }

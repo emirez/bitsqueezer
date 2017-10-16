@@ -1,6 +1,5 @@
 #include "bitsqueezr.hpp"
 #include <bitset>
-#include <Arduino.h>
 #include <stdio.h>
 
 BitSqueezr::BitSqueezr() {
@@ -29,7 +28,7 @@ uint8_t* BitSqueezr::getEncodedData() {
  *  Returns the current decoded data.
  */
 uint64_t BitSqueezr::getDecodedData() {
-    Serial.printf("%d", decodedData);
+//    Serial.printf("%d", decodedData);
     return decodedData;
 }
 
