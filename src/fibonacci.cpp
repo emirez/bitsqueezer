@@ -25,10 +25,10 @@ uint64_t FibEncoder::seriesFib(uint64_t n)
  */
 char * FibEncoder::encodeFib(uint64_t n)
 {
-//    Serial.printf("Encoding: %d\n", n);
-    uint64_t index = seriesFib(n);
+    Serial.printf("Encoding: %d\n", n);
+    int64_t index = seriesFib(n);
     char *codeword = (char*)malloc(sizeof(char)*(index+3));
-    uint64_t i = index;
+    int64_t i = index;
     while (n)
     {
         codeword[i] = '1';
@@ -43,7 +43,7 @@ char * FibEncoder::encodeFib(uint64_t n)
     codeword[index+1] = '1';
     codeword[index+2] = '\0';
 
-//    Serial.printf("Original fib: %s\n", codeword);
+    Serial.printf("Original fib: %s\n", codeword);
 
     return codeword;
 }
@@ -54,6 +54,8 @@ char * FibEncoder::encodeFib(uint64_t n)
  */
 uint64_t FibEncoder::decodeFib(const char *codeword)
 {
+    Serial.printf("\nTrying to decode: %s", codeword);
+
     size_t len = strlen(codeword);
     uint64_t decoded_nr = 0;
     for (int i = 0; i<len-1 ; i++)
@@ -61,6 +63,7 @@ uint64_t FibEncoder::decodeFib(const char *codeword)
         decoded_nr += (codeword[i] - '0')*fibSeries[i];
     }
 
+    Serial.printf("\nNum: %d", decoded_nr);
     return decoded_nr;
 }
 

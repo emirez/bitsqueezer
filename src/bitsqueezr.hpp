@@ -12,11 +12,12 @@ private:
 
 public:
     BitSqueezr();
-
     uint8_t* getEncodedData();
     uint64_t getDecodedData();
-    int getSize();
+    int getTotalBytes();
+    int getTotalBits();
     void setMaxSize(uint8_t size);
     bool add(uint64_t value);
+    bool add(char* value);
     bool unpack(uint8_t* value);
 };

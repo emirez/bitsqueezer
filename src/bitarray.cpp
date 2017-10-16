@@ -23,7 +23,7 @@ bool BitArray::is_full() {
 }
 
 void BitArray::init(uint8_t maxsz) {
-  if ( this->b_allocated) {
+  if (this->b_allocated) {
     free(p_buf);
   }
   this->sz = maxsz;
