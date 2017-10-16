@@ -58,5 +58,6 @@ HEADERS += \
 SOURCES += \
     src/bitsqueezr.cpp \
     src/main.cpp \
-    src/fibonacci.cpp
+    src/fibonacci.cpp \
+    src/bitarray.cpp
 
