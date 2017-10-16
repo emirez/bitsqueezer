@@ -51,7 +51,7 @@ bool BitArray::push(uint8_t bit) {
   // advance
   if( this->bitpos == 0) {
     // still space left?
-    if ( this->n < this->sz) {
+    if ( this->n < this->sz-1) {
       this->bitpos = 7;
       this->p++;
       this->n += 1;

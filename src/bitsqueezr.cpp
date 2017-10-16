@@ -2,14 +2,14 @@
 #include <bitset>
 #include <stdio.h>
 
-BitSqueezr::BitSqueezr() {
+BitSqueezr::BitSqueezr() : maxSize(0), decodedData(0) {
 }
 
 /*! \brief Set maximum array size.
  *
  *  Sets the maximum array size and initializes the bitArray. Mandatory!
  */
-bool BitSqueezr::setMaxSize(uint8_t size)
+void BitSqueezr::setMaxSize(uint8_t size)
 {
     this->maxSize = 12;
     bitArray.init(maxSize);
