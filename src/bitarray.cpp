@@ -6,7 +6,7 @@
 
 #define VERBOSE 1
 
-BitArray::BitArray(uint8_t maxsz) {
+BitArray::BitArray(uint8_t maxsz) : b_full(false), b_allocated(false) {
   init(maxsz);
 }
 
@@ -18,12 +18,17 @@ BitArray::~BitArray() {
   free(p_buf);
 }
 
+bool BitArray::is_full() {
+  return b_full;
+}
+
 void BitArray::init(uint8_t maxsz) {
-  if ( this->p_buf != NULL) {
+  if ( this->b_allocated) {
     free(p_buf);
   }
   this->sz = maxsz;
   this->p_buf = (uint8_t*)malloc(this->sz);
+  this->b_allocated = true;
   memset(this->p_buf, 0, this->sz);
   reset();
 }
@@ -33,19 +38,31 @@ void BitArray::reset() {
   this->p = this->p_buf;
   this->bitpos = 7;
   this->n = 0;
+  this->b_full = false;
 }
 
-void BitArray::push(uint8_t bit) {
+bool BitArray::push(uint8_t bit) {
+  if (this->b_full) {
+    return false;
+  }
+
   *p |= ((bit != 0)?1:0) << this->bitpos;
 
   // advance
   if( this->bitpos == 0) {
-    this->bitpos = 7;
-    this->p++;
-    this->n += 1;
+    // still space left?
+    if ( this->n < this->sz) {
+      this->bitpos = 7;
+      this->p++;
+      this->n += 1;
+    } else {
+      b_full = true;
+    }
   } else {
     this->bitpos--;
   }
+
+  return true;
 }
 
 uint8_t* BitArray::getData() {

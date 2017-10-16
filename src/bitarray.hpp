@@ -21,8 +21,14 @@ class BitArray {
   /** \brief current position of bit (from 7..0) */
   uint8_t   bitpos;
 
-/** \brief current position of byte */
+  /** \brief current position of byte */
   uint8_t   n;
+
+  /** \brief flag is buffer is full */
+  bool      b_full;
+
+  /** \brief true if buffer is malloc'ed */
+  bool      b_allocated;
 
 public:
 
@@ -39,7 +45,10 @@ public:
   void reset();
 
   /** \brief pushes given bit into buffer, advances pointers etc. */
-  void push(uint8_t bit);
+  bool push(uint8_t bit);
+
+  /** \brief returns true if buffer is full and would overflow */
+  bool is_full();
 
   /** \brief returns the buffer */
   operator const char*();
