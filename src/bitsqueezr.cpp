@@ -1,7 +1,10 @@
 #include "bitsqueezr.hpp"
 #include <bitset>
 #include <stdio.h>
+
+#ifndef UNIT_TEST
 #include <Arduino.h>
+#endif
 
 BitSqueezr::BitSqueezr() : maxSize(0), decodedData(0) {
 }
@@ -29,7 +32,10 @@ uint8_t* BitSqueezr::getEncodedData() {
  *  Returns the current decoded data.
  */
 uint64_t BitSqueezr::getDecodedData() {
+
+#ifndef UNIT_TEST
     Serial.printf("getDec: %d", decodedData);
+#endif
     return decodedData;
 }
 
@@ -58,7 +64,9 @@ bool BitSqueezr::add(char* value)
 {
     for (int i=0; i < value[i]; i++)
     {
+#ifndef UNIT_TEST
         Serial.printf("Trying to add char: %d", value[i]);
+#endif
         if(!add((u_int64_t)value[i]))
             return false;
     }
@@ -86,7 +94,9 @@ bool BitSqueezr::add(uint64_t value)
         }
         else
         {
+#ifndef UNIT_TEST
             Serial.printf("Can not fit %d bytes\n", maxSize);
+#endif
             return false;
         }
 
@@ -110,8 +120,9 @@ bool BitSqueezr::unpack(uint8_t* value)
         str.append(s.c_str());
     }
     str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
-
+#ifndef UNIT_TEST
     Serial.printf("%s", str.c_str());
+#endif
 
     decodedData = encoder.decodeFib(str.c_str());
 

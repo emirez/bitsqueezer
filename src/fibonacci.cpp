@@ -3,6 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+#ifndef UNIT_TEST
+#include <Arduino.h>
+#endif
+
 /*! \brief Returns fibonacci series
  *
  *  Returns a fibonacci series up to given value
@@ -25,7 +29,9 @@ uint64_t FibEncoder::seriesFib(uint64_t n)
  */
 char * FibEncoder::encodeFib(uint64_t n)
 {
+#ifndef UNIT_TEST
     Serial.printf("Encoding: %d\n", n);
+#endif
     int64_t index = seriesFib(n);
     char *codeword = (char*)malloc(sizeof(char)*(index+3));
     int64_t i = index;
@@ -43,7 +49,9 @@ char * FibEncoder::encodeFib(uint64_t n)
     codeword[index+1] = '1';
     codeword[index+2] = '\0';
 
+#ifndef UNIT_TEST
     Serial.printf("Original fib: %s\n", codeword);
+#endif
 
     return codeword;
 }
@@ -54,7 +62,9 @@ char * FibEncoder::encodeFib(uint64_t n)
  */
 uint64_t FibEncoder::decodeFib(const char *codeword)
 {
+#ifndef UNIT_TEST
     Serial.printf("\nTrying to decode: %s", codeword);
+#endif
 
     size_t len = strlen(codeword);
     uint64_t decoded_nr = 0;
@@ -63,7 +73,9 @@ uint64_t FibEncoder::decodeFib(const char *codeword)
         decoded_nr += (codeword[i] - '0')*fibSeries[i];
     }
 
+#ifndef UNIT_TEST
     Serial.printf("\nNum: %d", decoded_nr);
+#endif
     return decoded_nr;
 }
 
